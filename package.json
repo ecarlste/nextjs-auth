@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma": "prisma"
+    "prisma": "dotenv -e .env.local prisma"
   },
   "dependencies": {
     "@prisma/client": "4.12.0",
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
+    "dotenv-cli": "^7.2.1",
     "prisma": "^4.12.0"
   }
 }

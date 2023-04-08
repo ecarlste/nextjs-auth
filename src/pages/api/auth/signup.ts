@@ -3,7 +3,15 @@ import { prisma } from '@/lib/prisma';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { email, password } = req.body;
+  const { method, body } = req;
+  const { email, password } = body;
+
+  if (method !== 'POST') {
+    const errorMessage = `Incorrect method ${method}`;
+
+    console.error(errorMessage);
+    res.status(400).json({ message: errorMessage });
+  }
 
   try {
     const hashedPassword = await hashPassword(password);
