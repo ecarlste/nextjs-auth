@@ -2,7 +2,7 @@ import { FormEvent, useRef, useState } from 'react';
 import classes from './auth-form.module.css';
 import { User } from '@prisma/client';
 import { signIn } from 'next-auth/react';
-import { redirect } from 'next/dist/server/api-utils';
+import { useRouter } from 'next/router';
 
 async function createUser(user: Partial<User>) {
   const createUserResponse = await fetch('/api/auth/signup', {
@@ -25,6 +25,7 @@ function AuthForm() {
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
   const [isLogin, setIsLogin] = useState(true);
+  const router = useRouter();
 
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
@@ -44,6 +45,8 @@ function AuthForm() {
       });
 
       console.log(result);
+
+      router.replace('/profile');
     } else {
       try {
         const createdUser = await createUser({
